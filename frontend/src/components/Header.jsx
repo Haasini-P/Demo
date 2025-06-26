@@ -19,7 +19,7 @@ const Header = () => {
           <li><a href="#contact">Contact</a></li>
 
           {/* Conditional rendering for Login/Logout */}
-          {isAuthenticated ? (
+          {isAuthenticated && user ? (
             <>
               <li><span style={{ color: 'orange' }}>Welcome, {user.name}</span></li>
               <li>

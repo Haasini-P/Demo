@@ -1,90 +1,79 @@
-import React, { createContext, useState, useContext, useEffect } from 'react';
+import React, { createContext, useContext, useState, useMemo, useCallback } from 'react';
 
-// Create the context
-const AuthContext = createContext(null);
+const AuthContext = createContext();
 
-// This is a custom hook that components will use to access the context
-export const useAuth = () => {
-    return useContext(AuthContext);
-};
-
-// This is the provider component that will wrap our app
 export const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    return !!localStorage.getItem('token');
+  });
+  const [user, setUser] = useState(null);
 
-    // Effect to check localStorage for a user session on initial app load
-    useEffect(() => {
-        const storedUser = localStorage.getItem('craftconnect_user');
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
-        }
-    }, []);
+  const login = useCallback(async (email, password) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      const data = await response.json();
+      if (response.ok) {
+        localStorage.setItem('token', data.token);
+        setIsAuthenticated(true);
+        setUser(data.user);
+        return true;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error('Login error:', error);
+      return false;
+    }
+  }, []);
 
-    // --- MOCK API FUNCTIONS ---
-    // In a real app, these would make network requests to a backend server.
+  const signup = useCallback(async (name, email, password) => {
+    try {
+      const response = await fetch('http://localhost:5000/api/auth/signup', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name, email, password }),
+      });
+      if (response.ok) {
+        // Automatically login after signup
+        return await login(email, password);
+      } else {
+        const data = await response.json();
+        alert(data.message || 'Signup failed');
+        return false;
+      }
+    } catch (error) {
+      console.error('Signup error:', error);
+      return false;
+    }
+  }, [login]);
 
-    const login = (email, password) => {
-        // Simulate an API call
-        console.log("Attempting login for:", email);
-        
-        // Hardcoded user for demonstration purposes
-        if (email === 'user@example.com' && password === 'password123') {
-            const userData = {
-                email: 'user@example.com',
-                name: 'Alex Doe'
-            };
-            setUser(userData);
-            // Store user session in localStorage to persist login
-            localStorage.setItem('craftconnect_user', JSON.stringify(userData));
-            return true; // Indicate success
-        }
-        
-        // Check if the user exists from a mock registration
-        const registeredUser = JSON.parse(localStorage.getItem(`user_${email}`));
-        if (registeredUser && registeredUser.password === password) {
-             setUser(registeredUser);
-             localStorage.setItem('craftconnect_user', JSON.stringify(registeredUser));
-             return true;
-        }
+  const logout = useCallback(() => {
+    localStorage.removeItem('token');
+    setIsAuthenticated(false);
+    setUser(null);
+  }, []);
 
-        console.error("Login failed: Invalid credentials");
-        return false; // Indicate failure
-    };
+  const value = useMemo(() => ({
+    isAuthenticated,
+    user,
+    login,
+    signup,
+    logout,
+  }), [isAuthenticated, user, login, signup, logout]);
 
-    const signup = (name, email, password) => {
-        // Simulate creating a new user
-        console.log("Attempting signup for:", name, email);
-        
-        // In a real app, you'd check if the user already exists.
-        // For this demo, we'll just store the new user in localStorage.
-        const newUser = { name, email, password };
-        localStorage.setItem(`user_${email}`, JSON.stringify(newUser));
-        
-        // For a better user experience, log them in immediately after signup
-        setUser(newUser);
-        localStorage.setItem('craftconnect_user', JSON.stringify(newUser));
-        console.log("Signup successful and user logged in.");
-    };
-
-    const logout = () => {
-        console.log("Logging out.");
-        setUser(null);
-        // Remove the user session from localStorage
-        localStorage.removeItem('craftconnect_user');
-    };
-
-    // The value provided to consuming components
-    const value = {
-        isAuthenticated: !!user, // True if user object exists, false otherwise
-        user,
-        login,
-        signup,
-        logout,
-    };
-
-    return (
-        <AuthContext.Provider value={value}>
-            {children}
-        </AuthContext.Provider>
-    );
+  return (
+    <AuthContext.Provider value={value}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
+
+export const useAuth = () => useContext(AuthContext);

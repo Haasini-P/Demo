@@ -7,9 +7,9 @@ const SignInForm = ({ onSignUpClick }) => {
     const [password, setPassword] = useState('');
     const { login } = useAuth();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const success = login(email, password);
+        const success = await login(email, password);
         if (!success) {
             alert('Login failed! Please check your credentials or sign up.');
         }
@@ -46,9 +46,9 @@ const SignUpForm = ({ onSignInClick }) => {
     const [password, setPassword] = useState('');
     const { signup } = useAuth();
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        signup(name, email, password);
+        await signup(name, email, password);
         // The user is automatically logged in on successful signup
     };
 
