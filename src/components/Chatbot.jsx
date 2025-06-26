@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// --- Project Context for the Chatbot ---
+// --- Project Context for  Chatbot ---
 // This detailed prompt primes the AI to be a specialized assistant for your project.
 const projectContext = `
 You are a friendly and helpful assistant for CraftConnect. 
