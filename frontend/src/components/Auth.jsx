@@ -6,20 +6,30 @@ const SignInForm = ({ onSignUpClick }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { login } = useAuth();
+    
+    // State to hold and display the login error message
+    const [error, setError] = useState(null);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        const success = login(email, password);
-        if (!success) {
-            alert('Login failed! Please check your credentials or sign up.');
+        setError(null); // Clear previous errors on a new attempt
+        try {
+            await login(email, password);
+            // On successful login, the AuthContext will set isAuthenticated to true,
+            // and the parent Auth component will re-render and disappear.
+        } catch (err) {
+            // If the login function in the context throws an error, we catch it here.
+            setError(err.message); // Set the error message to display to the user.
         }
-        // On success, the component will disappear automatically because of the parent's check
     };
 
     return (
         <div className="container1">
             <h1 className="form-title">Sign In</h1>
             <form onSubmit={handleSubmit}>
+                {/* This div will only appear if there is an error message */}
+                {error && <p className="error-popup">{error}</p>}
+                
                 <div className="input-group">
                     <input type="email" id="email-signin" placeholder="Email" required value={email} onChange={(e) => setEmail(e.target.value)} />
                     <label htmlFor="email-signin">Email</label>
@@ -39,7 +49,7 @@ const SignInForm = ({ onSignUpClick }) => {
     );
 };
 
-// --- SignUpForm Sub-Component ---
+// --- SignUpForm Sub-Component (No changes needed here) ---
 const SignUpForm = ({ onSignInClick }) => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
@@ -79,7 +89,7 @@ const SignUpForm = ({ onSignInClick }) => {
 };
 
 
-// --- Main Auth Component ---
+// --- Main Auth Component (No changes needed here) ---
 const Auth = () => {
     const [showSignIn, setShowSignIn] = useState(true);
     const { isAuthenticated } = useAuth();

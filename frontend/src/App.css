@@ -726,3 +726,27 @@ footer {
     width: 30px;
     margin: 0 10px;
 }
+/* Add this to your main CSS file or a specific Auth.css */
+.error-popup {
+  color: #D8000C; /* Red text */
+  background-color: #FFD2D2; /* Light red background */
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+.logout-button {
+  background: none;
+  border: none;
+  color: #EEA21B; /* Or whatever your link color is */
+  cursor: pointer;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+  text-decoration: underline;
+}
+
+.logout-button:hover {
+  color: #FFFFFF; /* Or your link hover color */
+}

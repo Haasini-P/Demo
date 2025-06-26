@@ -21,9 +21,12 @@ const Header = () => {
           {/* Conditional rendering for Login/Logout */}
           {isAuthenticated && user ? (
             <>
-              <li><span style={{ color: 'orange' }}>Welcome, {user.name}</span></li>
+              <li><span style={{ color: 'orange', paddingRight: '15px' }}>Welcome, {user.name}</span></li>
               <li>
-                <a href="#home" onClick={logout} style={{ cursor: 'pointer' }}>Logout</a>
+                {/* --- CHANGE: Use a button for the logout action --- */}
+                <button onClick={logout} className="logout-button">
+                  Logout
+                </button>
               </li>
             </>
           ) : (
