@@ -1,0 +1,507 @@
+/* General Body and Font Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #fff; /* Base background */
+}
+
+/* --- Header & Navigation --- */
+header {
+    background: black;
+    color: #fff;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+
+.logo img {
+    width: 120px;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: white;
+}
+
+.nav-links a:hover {
+    color: orange;
+}
+
+/* --- General Section Styling --- */
+.section {
+    padding: 100px 50px;
+    text-align: center;
+}
+
+/* --- Home Section --- */
+#home {
+    color: white;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: left;
+    font-size: 35px;
+    background-size: cover;
+    background-position: center center;
+}
+
+#home .content {
+    max-width: 800px;
+}
+
+.btn {
+    background: orange;
+    padding: 10px 25px;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1.5rem;
+}
+
+/* --- Image Slider --- */
+.slider-container {
+    position: relative;
+    max-width: 1400px;
+    margin: 50px auto;
+    overflow: hidden;
+}
+
+.image-row {
+    display: flex;
+    transition: transform 0.4s ease-in-out;
+}
+
+.image-row img {
+    width: 300px;
+    height: 200px;
+    margin-right: 10px;
+    object-fit: cover;
+    flex-shrink: 0; /* Prevent images from shrinking */
+}
+
+.prev, .next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    font-size: 24px;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 100;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover, .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+
+/* --- About Section --- */
+#about .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    padding-bottom: 10px;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#about .description {
+    flex: 1;
+    padding-right: 20px;
+}
+
+#about .description h2 {
+    font-size: 2rem;
+    color: #333;
+}
+
+#about .description p {
+    font-size: 1.1rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+#about .image {
+    flex: 1;
+}
+
+#about .image img {
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+@media (max-width: 768px) {
+    #about .container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    #about .description {
+        padding-right: 0;
+        margin-bottom: 20px;
+    }
+}
+
+/* --- Features Section --- */
+#features {
+    padding: 20px;
+    background-color: #f4f4f4;
+    margin: 20px 0;
+}
+
+.features-gallery {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.feature {
+    width: 250px; /* Fixed width */
+    text-align: center;
+}
+
+.feature .image-container {
+    cursor: pointer;
+}
+
+.feature img {
+    width: 250px;
+    height: 300px;
+    object-fit: cover;
+}
+
+
+/* --- Modal (Pop-up) --- */
+.modal-overlay {
+    display: flex; /* Changed from none to flex for centering */
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal-content {
+    background-color: white;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 900px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: relative;
+}
+
+.modal-content .close {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    color: #aaa;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.modal-content .close:hover,
+.modal-content .close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.modal-content img {
+    max-width: 40%;
+    height: 400px;
+    object-fit: cover;
+}
+
+.modal-content div {
+    text-align: left;
+}
+
+
+/* --- Team Section --- */
+#team {
+    background: #f5f5f5;
+    margin-top: 60px;
+}
+
+.team-grid {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.team-member .circle-image {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-bottom: 15px;
+}
+
+.team-member .circle-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* --- Testimonials Section --- */
+#testimonials {
+    background: #f5f5f5;
+    margin-top: 60px;
+}
+
+.testimonial-box {
+    border: 1px solid #ccc;
+    padding: 20px;
+    margin: 10px;
+    display: inline-block;
+    width: 30%;
+    vertical-align: top;
+    text-align: left;
+    background: white;
+    border-radius: 8px;
+}
+
+.testimonial-box .icon-container {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.testimonial-box .icon-container img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.testimonial-box .icon-container h3 {
+    font-size: 1.2rem;
+    margin: 10px 0 5px;
+    color: #333;
+}
+
+.testimonial-box .icon-container p {
+    font-size: 0.9rem;
+    color: #777;
+    margin: 0;
+}
+
+
+/* --- Login/Register (Auth) Section --- */
+#login {
+    background-color: #c9d6ff;
+    background: linear-gradient(to right, #e2e2e2, #c9d6ff);
+}
+.container1 {
+    background: #fff;
+    width: 450px;
+    padding: 1.5rem;
+    margin: 50px auto;
+    border-radius: 10px;
+    box-shadow: 0 20px 35px rgba(0, 0, 1, 0.9);
+}
+
+.container1 form {
+    margin: 0 2rem;
+}
+
+.form-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    padding: 1.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.input-group {
+    padding: 1% 0;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.input-group i {
+    position: absolute;
+    color: black;
+}
+
+.input-group input {
+    color: inherit;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 1px solid #757575;
+    padding-left: 1.5rem;
+    font-size: 15px;
+    padding-bottom: 5px;
+}
+
+.input-group input:focus {
+    background-color: transparent;
+    outline: transparent;
+    border-bottom: 2px solid hsl(327, 90%, 28%);
+}
+
+.input-group input::placeholder {
+    color: transparent;
+}
+
+.input-group label {
+    color: #757575;
+    position: absolute;
+    left: 1.2em;
+    top: 0;
+    cursor: text;
+    transition: 0.3s ease all;
+}
+
+.input-group input:focus~label,
+.input-group input:not(:placeholder-shown)~label {
+    top: -1.5em;
+    color: hsl(327, 90%, 28%);
+    font-size: 14px;
+}
+
+.recover {
+    text-align: right;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+}
+
+.recover a {
+    text-decoration: none;
+    color: rgb(125, 125, 235);
+}
+
+.recover a:hover {
+    color: blue;
+    text-decoration: underline;
+}
+
+.btn1 {
+    font-size: 1.1rem;
+    padding: 12px 0;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    width: 100%;
+    background: rgb(125, 125, 235);
+    color: white;
+    cursor: pointer;
+    transition: 0.9s;
+}
+
+.btn1:hover {
+    background: #07001f;
+}
+
+.links {
+    display: flex;
+    justify-content: space-around;
+    padding: 0 4rem;
+    margin-top: 0.9rem;
+    font-weight: bold;
+    align-items: center;
+}
+.links p {
+    margin: 0;
+}
+
+.links button {
+    color: rgb(125, 125, 235);
+    border: none;
+    background-color: transparent;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    padding: 0;
+}
+
+.links button:hover {
+    text-decoration: underline;
+    color: blue;
+}
+
+
+/* --- Contact & Footer --- */
+.contact-section {
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+.social-icons a img {
+    width: 30px;
+    margin: 5px;
+}
+
+.company-info, .help-options {
+    display: inline-block;
+    vertical-align: top;
+    width: 30%;
+    text-align: center;
+}
+.company-info ul, .help-options ul {
+    list-style: none;
+    padding: 0;
+}
+.company-info ul a, .help-options ul li {
+    text-decoration: none;
+    color: #333;
+    line-height: 1.8;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #333;
+    color: white;
+}
