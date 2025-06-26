@@ -1,7 +1,6 @@
 import React from 'react';
 import './App.css';
 
-// Import all the components
 import Header from './components/Header.jsx';
 import Home from './components/Home.jsx';
 import ImageSlider from './components/ImageSlider.jsx';
@@ -12,6 +11,7 @@ import Testimonials from './components/Testimonials.jsx';
 import Auth from './components/Auth.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
+import Chatbot from './components/Chatbot.jsx'; // <-- 1. Import the new component
 
 function App() {
   return (
@@ -28,6 +28,7 @@ function App() {
         <Contact />
       </main>
       <Footer />
+      <Chatbot /> {/* <-- 2. Add the Chatbot component here */}
     </div>
   );
 }

@@ -1,6 +1,9 @@
 import React from 'react';
+import { useAuth } from '../context/AuthContext.jsx'; // Import the hook
 
 const Header = () => {
+  const { isAuthenticated, user, logout } = useAuth(); // Use the context
+
   return (
     <header>
       <nav>
@@ -14,7 +17,18 @@ const Header = () => {
           <li><a href="#team">Team</a></li>
           <li><a href="#testimonials">Testimonials</a></li>
           <li><a href="#contact">Contact</a></li>
-          <li><a href="#login">Login</a></li>
+
+          {/* Conditional rendering for Login/Logout */}
+          {isAuthenticated ? (
+            <>
+              <li><span style={{ color: 'orange' }}>Welcome, {user.name}</span></li>
+              <li>
+                <a href="#home" onClick={logout} style={{ cursor: 'pointer' }}>Logout</a>
+              </li>
+            </>
+          ) : (
+            <li><a href="#login">Login</a></li>
+          )}
         </ul>
       </nav>
     </header>
